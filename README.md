@@ -1,36 +1,162 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FichaDoctor - Frontend
 
-## Getting Started
+## Descripción
 
-First, run the development server:
+FichaDoctor es una plataforma de gestión médica digital que permite a doctores, pacientes y secretarias gestionar citas médicas, fichas clínicas, recetas, solicitudes de exámenes y mensajería interna.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+El frontend es una aplicación web construida con **Next.js 14** (React) y desplegada en **Vercel**. Utiliza **Tailwind CSS** para los estilos y **SWR** para la gestión de datos del servidor.
+
+## Tecnologías
+
+- **Framework:** Next.js 14 (React 18)
+- **Lenguaje:** TypeScript
+- **Estilos:** Tailwind CSS
+- **Gestión de datos:** SWR (stale-while-revalidate)
+- **Despliegue:** Vercel
+- **Autenticación:** JWT con refresh token (localStorage + cookies)
+
+## Funcionalidades principales
+
+### Usuario Doctor
+- **Dashboard** con citas del día y pendientes
+- **Agenda semanal** con grilla de celdas (verde=disponible, rojo=ocupado, gris=no habilitado, amarillo=pasado)
+- **Gestión de pacientes** listado de pacientes atendidos
+- **Fichas médicas** con historial clínico por paciente
+- **Atención de pacientes** con formulario de síntomas e indicaciones
+- **Generación de PDF** para recetas médicas y solicitudes de exámenes
+- **Mensajería** con pacientes
+- **Gestión de secretarias**
+
+### Usuario Paciente
+- **Búsqueda de doctores** por región, comuna y especialidad
+- **Agendamiento de citas** seleccionando horarios disponibles
+- **Mis citas** con historial y opción de cancelar
+- **Mis atenciones** con fichas médicas propias
+- **Mensajería** con doctores que lo han atendido
+
+### Usuario Secretaria
+- **Agenda del doctor** con la misma grilla semanal (habilitar/deshabilitar slots)
+- **Gestión de citas** búsqueda de paciente por RUT y asignación de horarios
+- **Dashboard** con resumen de citas del doctor asignado
+
+## Árbol de directorios
+
+```
+Frontend/
+├── src/
+│   ├── app/                           # Páginas (App Router de Next.js)
+│   │   ├── (auth)/                    # Páginas públicas de autenticación
+│   │   │   ├── login/page.tsx         # Inicio de sesión
+│   │   │   ├── register/page.tsx      # Registro de nuevos usuarios
+│   │   │   └── forgot-password/page.tsx
+│   │   ├── doctor/                    # Vistas del Doctor
+│   │   │   ├── dashboard/page.tsx     # Panel principal
+│   │   │   ├── schedule/page.tsx      # Gestión de agenda semanal
+│   │   │   ├── patients/page.tsx      # Listado de pacientes
+│   │   │   ├── medical-records/page.tsx # Fichas médicas
+│   │   │   ├── attend/[id]/page.tsx   # Atención de paciente
+│   │   │   ├── messages/page.tsx      # Mensajería
+│   │   │   ├── secretaries/page.tsx   # Gestión de secretarias
+│   │   │   └── layout.tsx             # Layout del doctor
+│   │   ├── patient/                   # Vistas del Paciente
+│   │   │   ├── dashboard/page.tsx     # Panel principal
+│   │   │   ├── doctors/page.tsx       # Búsqueda de doctores
+│   │   │   ├── doctors/[id]/book/page.tsx # Agendar cita
+│   │   │   ├── appointments/page.tsx  # Mis citas
+│   │   │   ├── medical-records/page.tsx # Mis atenciones
+│   │   │   ├── messages/page.tsx      # Mensajería
+│   │   │   └── layout.tsx             # Layout del paciente
+│   │   ├── secretary/                 # Vistas de la Secretaria
+│   │   │   ├── dashboard/page.tsx     # Panel principal
+│   │   │   ├── schedule/page.tsx      # Agenda del doctor
+│   │   │   ├── appointments/page.tsx  # Gestión de citas
+│   │   │   └── layout.tsx             # Layout de secretaria
+│   │   ├── layout.tsx                 # Layout raíz
+│   │   ├── page.tsx                   # Landing page
+│   │   └── globals.css                # Estilos globales
+│   ├── components/                    # Componentes reutilizables
+│   │   ├── ui/                        # Componentes UI base
+│   │   │   ├── Button.tsx
+│   │   │   ├── Card.tsx
+│   │   │   ├── Input.tsx
+│   │   │   ├── Badge.tsx
+│   │   │   ├── Spinner.tsx
+│   │   │   ├── Table.tsx
+│   │   │   └── index.ts
+│   │   └── layout/                    # Componentes de layout
+│   │       └── Sidebar.tsx            # Menú lateral con navegación por rol
+│   ├── context/                       # Contextos de React
+│   │   └── AuthContext.tsx            # Autenticación y sesión
+│   ├── lib/                           # Utilidades y datos
+│   │   ├── api.ts                     # Cliente HTTP centralizado
+│   │   ├── auth.ts                    # Manejo de tokens (access/refresh)
+│   │   ├── chileanData.ts            # Regiones y comunas de Chile
+│   │   ├── especialidades.ts         # Lista de especialidades médicas
+│   │   └── regiones-comunas.ts       # Datos de regiones/comunas
+│   ├── services/                      # Servicios de API
+│   │   ├── doctorService.ts           # Funciones para el rol Doctor
+│   │   ├── patientService.ts          # Funciones para el rol Paciente
+│   │   └── secretaryService.ts        # Funciones para el rol Secretaria
+│   └── middleware.ts                  # Middleware de protección de rutas
+├── public/                            # Archivos estáticos
+├── package.json                       # Dependencias y scripts
+├── next.config.js                     # Configuración de Next.js
+├── tailwind.config.ts                 # Configuración de Tailwind CSS
+├── tsconfig.json                      # Configuración de TypeScript
+├── postcss.config.js                  # Configuración de PostCSS
+├── .env.example                       # Variables de entorno requeridas
+├── .gitignore                         # Archivos excluidos de Git
+└── README.md                          # Este archivo
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Variables de entorno
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Configurar en el dashboard de Vercel:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Variable | Descripción |
+|----------|-------------|
+| `NEXT_PUBLIC_API_URL` | URL del backend desplegado (ej: `https://fichadoctor-api.vercel.app`) |
 
-## Learn More
+## Instalación local
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+# Instalar dependencias
+npm install
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Crear archivo de variables de entorno
+cp .env.example .env.local
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Editar .env.local con la URL del backend
+# NEXT_PUBLIC_API_URL=http://localhost:3001
 
-## Deploy on Vercel
+# Ejecutar en modo desarrollo
+npm run dev
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Despliegue en Vercel
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Subir este repositorio a GitHub
+2. Importar en Vercel como nuevo proyecto
+3. Vercel detecta automáticamente Next.js
+4. Configurar la variable `NEXT_PUBLIC_API_URL` con la URL del backend en producción
+5. Desplegar
+
+## Scripts disponibles
+
+| Comando | Descripción |
+|---------|-------------|
+| `npm run dev` | Inicia el servidor de desarrollo en `localhost:3000` |
+| `npm run build` | Compila la aplicación para producción |
+| `npm run start` | Inicia el servidor de producción |
+| `npm run lint` | Ejecuta el linter de código |
+
+## Diseño
+
+- Tema oscuro por defecto con opción de modo claro
+- Diseño responsivo (mobile-first)
+- Componentes reutilizables con Tailwind CSS
+- Sidebar con navegación diferenciada por rol
+
+## Autor
+
+Proyecto desarrollado como plataforma de gestión médica digital.
