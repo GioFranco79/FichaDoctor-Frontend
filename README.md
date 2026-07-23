@@ -2,9 +2,10 @@
 
 ## Descripción
 
-FichaDoctor es una plataforma de gestión médica digital que permite a doctores, pacientes y secretarias gestionar citas médicas, fichas clínicas, recetas, solicitudes de exámenes y mensajería interna.
+FichaDoctor es una plataforma de gestión médica digital que permite a doctores, pacientes y secretarias gestionar citas médicas, fichas clínicas, recetas, solicitudes de exámenes y mensajería interna.  Esta App esta pensada para funcionar en el territorio de Chile, con RUT, Regiones y Comunas de Chile.
 
-El frontend es una aplicación web construida con **Next.js 14** (React) y desplegada en **Vercel**. Utiliza **Tailwind CSS** para los estilos y **SWR** para la gestión de datos del servidor.
+Dirección de proyecto deployado:
+https://ficha-doctor-git-main-giovanni-franco-calfiqueos-projects.vercel.app
 
 ## Tecnologías
 
