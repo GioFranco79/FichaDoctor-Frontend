@@ -12,7 +12,7 @@ interface Message {
   sender_id: string;
   recipient_id: string;
   content: string;
-  read: boolean;
+  is_read: boolean;
   created_at: string;
   sender?: { first_name: string; last_name: string };
   recipient?: { first_name: string; last_name: string };
