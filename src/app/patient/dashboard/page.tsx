@@ -18,12 +18,12 @@ export default function PatientDashboardPage() {
   const today = new Date().toISOString().split("T")[0];
 
   const upcomingAppointments = appointments
-    ?.filter((apt) => apt.date >= today && apt.status !== "cancelada")
-    .sort((a, b) => a.date.localeCompare(b.date) || a.start_time.localeCompare(b.start_time))
+    ?.filter((apt) => apt.appointment_date >= today && apt.status !== "cancelada")
+    .sort((a, b) => a.appointment_date.localeCompare(b.appointment_date) || a.start_time.localeCompare(b.start_time))
     .slice(0, 3) ?? [];
 
   const pastAppointments = appointments
-    ?.filter((apt) => apt.date < today || apt.status === "completada") ?? [];
+    ?.filter((apt) => apt.appointment_date < today || apt.status === "completada") ?? [];
 
   const totalAppointments = appointments?.length ?? 0;
 
@@ -134,7 +134,7 @@ export default function PatientDashboardPage() {
                             Dr. {apt.doctor?.first_name} {apt.doctor?.last_name}
                           </p>
                           <p className="text-sm text-gray-500 dark:text-gray-400">
-                            {formatDate(apt.date)} · {apt.start_time} - {apt.end_time}
+                            {formatDate(apt.appointment_date)} · {apt.start_time?.substring(0, 5)} - {apt.end_time?.substring(0, 5)}
                           </p>
                         </div>
                       </div>

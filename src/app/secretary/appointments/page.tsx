@@ -74,12 +74,6 @@ export default function SecretaryAppointmentsPage() {
     setRutInput(`${formatted}-${dv}`);
   };
 
-  // Fetch patients for booking dropdown
-  const { data: patients, isLoading: loadingPatients } = useSWR(
-    doctorId ? ["secretary-patients", doctorId] : null,
-    () => fetchDoctorPatients(doctorId!)
-  );
-
   const handleSearchPatient = async () => {
     if (!rutInput.trim()) return;
     setSearchingPatient(true);
@@ -142,13 +136,13 @@ export default function SecretaryAppointmentsPage() {
   const getStatusVariant = (status: string) => {
     switch (status) {
       case "confirmada":
-        return "success";
+        return "success" as const;
       case "cancelada":
-        return "danger";
+        return "error" as const;
       case "completada":
-        return "info";
+        return "info" as const;
       default:
-        return "warning";
+        return "warning" as const;
     }
   };
 
