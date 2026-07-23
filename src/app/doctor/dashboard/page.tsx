@@ -233,11 +233,6 @@ export default function DoctorDashboardPage() {
           </h2>
         </CardHeader>
         <CardBody className="flex gap-3">
-          <Link href="/doctor/patients/new">
-            <Button variant="primary">
-              Nuevo paciente
-            </Button>
-          </Link>
           <Link href="/doctor/schedule">
             <Button variant="outline">
               Ver agenda
