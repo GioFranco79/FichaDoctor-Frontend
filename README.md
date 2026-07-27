@@ -7,6 +7,10 @@ FichaDoctor es una plataforma de gestión médica digital que permite a doctores
 Dirección de proyecto deployado:
 https://ficha-doctor.vercel.app
 
+Repositorio Backend:
+https://github.com/GioFranco79/FichaDoctor-Backend.git
+
+
 ## Tecnologías
 
 - **Framework:** Next.js 14 (React 18)
